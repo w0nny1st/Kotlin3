@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/TestPadding">
+
+    <TextView
+        android:id="@+id/questionTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/q1"
+        android:textSize="@dimen/q1TxtSize"
+        android:textStyle="bold"
+        android:layout_marginBottom="@dimen/q1MargB"/>
+
+    <RadioGroup
+        android:id="@+id/optionsGroup"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layH1"
+        android:layout_weight="1"
+        android:layout_marginBottom="@dimen/margB">
+
+        <RadioButton
+            android:id="@+id/option1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/var1"
+            android:textSize="@dimen/var1TxtSize"
+            android:layout_marginBottom="@dimen/var1MargB"/>
+
+        <RadioButton
+            android:id="@+id/option2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/var2"
+            android:textSize="@dimen/varTxtSize"
+            android:layout_marginBottom="@dimen/var2MargB"/>
+
+        <RadioButton
+            android:id="@+id/option3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/var3"
+            android:textSize="@dimen/var3TxtSize"
+            android:layout_marginBottom="@dimen/var3MargB"/>
+
+        <RadioButton
+            android:id="@+id/option4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/var4"
+            android:textSize="@dimen/var4TxtSize"
+            android:layout_marginBottom="@dimen/var4MargB"/>
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/nextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Continue"
+        android:layout_gravity="end"
+        android:textSize="@dimen/ContTxtSize"/>
+
+</LinearLayout>

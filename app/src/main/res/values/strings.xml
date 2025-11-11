@@ -1,0 +1,14 @@
+<resources>
+    <string name="result">Результат</string>
+    <string name="test1">Тест</string>
+    <string name="EnterName">Введите ваше имя</string>
+    <string name="StartTest">Начать тест</string>
+    <string name="result2">Ваш результат</string>
+    <string name="StartAgain">Начать заново</string>
+    <string name="q1">Вопрос 1</string>
+    <string name="var1">Вариант 1</string>
+    <string name="var2">Вариант 2</string>
+    <string name="var3">Вариант 3</string>
+    <string name="var4">Вариант 4</string>
+    <string name="Continue">Далее</string>
+</resources>

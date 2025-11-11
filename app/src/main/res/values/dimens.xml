@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="mainPad">20dp</dimen>
+    <dimen name="test1TxtSize">30sp</dimen>
+    <dimen name="test1MargB">50dp</dimen>
+    <dimen name="EnterNameTxtSize">18sp</dimen>
+    <dimen name="EnterNameMargB">20dp</dimen>
+    <dimen name="StartTestTxtSize">18sp</dimen>
+    <dimen name="resPadding">20dp</dimen>
+    <dimen name="result2TxtSize">24sp</dimen>
+    <dimen name="result2MargB">50dp</dimen>
+    <dimen name="result2Extra">8sp</dimen>
+    <dimen name="StartAgainTxtSize">18sp</dimen>
+    <dimen name="TestPadding">20dp</dimen>
+    <dimen name="q1TxtSize">20sp</dimen>
+    <dimen name="q1MargB">30dp</dimen>
+    <dimen name="layH1">0dp</dimen>
+    <dimen name="margB">30dp</dimen>
+    <dimen name="var1TxtSize">16sp</dimen>
+    <dimen name="var1MargB">10dp</dimen>
+    <dimen name="varTxtSize">16sp</dimen>
+    <dimen name="var2MargB">10dp</dimen>
+    <dimen name="var3TxtSize">16sp</dimen>
+    <dimen name="var3MargB">10dp</dimen>
+    <dimen name="var4TxtSize">16sp</dimen>
+    <dimen name="var4MargB">10dp</dimen>
+    <dimen name="ContTxtSize">18sp</dimen>
+</resources>
