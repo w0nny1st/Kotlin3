@@ -8,38 +8,43 @@ import com.example.kotlin3.databinding.ActivityResultBinding
 class ResultActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityResultBinding
-    private val correctAnswers = listOf(2, 1, 2, 2, 2)
+    private var userName = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityResultBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val userAnswers = intent.getIntegerArrayListExtra("answers")
+        val correctCount = intent.getIntExtra("correct_answers", 0)
+        val totalQuestions = intent.getIntExtra("total_questions", 0)
+        userName = intent.getStringExtra("user_name") ?: ""
 
-        if (userAnswers != null) {
-            var correctCount = 0
-            for (i in userAnswers.indices) {
-                if (i < correctAnswers.size && userAnswers[i] == correctAnswers[i]) {
-                    correctCount++
-                }
-            }
+        val percentage = (correctCount.toDouble() / totalQuestions) * 100
+        val resultText = """
+            Пользователь: $userName
+            Ваш результат: $correctCount/$totalQuestions
+            Процент правильных ответов: ${"%.1f".format(percentage)}%
+            
+            ${when {
+            percentage == 100.0 -> "Отлично! 🎉"
+            percentage >= 70.0 -> "Хорошо! 👍"
+            percentage >= 50.0 -> "Удовлетворительно 👌"
+            else -> "Попробуйте еще раз! 💪"
+        }}
+        """.trimIndent()
 
-            val totalQuestions = correctAnswers.size
-            val resultText = "Ваш результат: $correctCount/$totalQuestions\n\n" +
-                    when {
-                        correctCount == totalQuestions -> "Отлично! 🎉"
-                        correctCount > totalQuestions / 2 -> "Хорошо! 👍"
-                        else -> "Попробуйте еще раз! 💪"
-                    }
-
-            binding.resultTextView.text = resultText
-        }
+        binding.resultTextView.text = resultText
 
         binding.restartButton.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()
+        }
+
+        binding.historyButton.setOnClickListener {
+            val intent = Intent(this, HistoryActivity::class.java)
+            intent.putExtra("user_name", userName)
+            startActivity(intent)
         }
     }
 }

@@ -23,4 +23,12 @@
         android:text="@string/StartAgain"
         android:textSize="@dimen/StartAgainTxtSize"/>
 
+    <Button
+        android:id="@+id/historyButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="История результатов"
+        android:textSize="@dimen/StartAgainTxtSize"
+        android:layout_marginTop="20dp"/>
+
 </LinearLayout>

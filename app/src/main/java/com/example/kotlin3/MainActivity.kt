@@ -19,21 +19,28 @@ class MainActivity : AppCompatActivity() {
 
         sharedPref = getSharedPreferences("my_prefs", MODE_PRIVATE)
 
-        // Загружаем сохраненное имя
         val savedName = sharedPref.getString("user_name", "")
         binding.nameEditText.setText(savedName)
 
         binding.startButton.setOnClickListener {
             val name = binding.nameEditText.text.toString()
             if (name.isNotEmpty()) {
-                // Сохраняем имя
                 sharedPref.edit().putString("user_name", name).apply()
 
-                // Переходим к тесту
                 val intent = Intent(this, TestActivity::class.java)
                 startActivity(intent)
             } else {
                 Toast.makeText(this, "Введите имя", Toast.LENGTH_SHORT).show()
+            }
+        }
+        binding.historyButton.setOnClickListener {
+            val name = binding.nameEditText.text.toString()
+            if (name.isNotEmpty()) {
+                val intent = Intent(this, HistoryActivity::class.java)
+                intent.putExtra("user_name", name)
+                startActivity(intent)
+            } else {
+                Toast.makeText(this, "Введите имя для просмотра истории", Toast.LENGTH_SHORT).show()
             }
         }
     }

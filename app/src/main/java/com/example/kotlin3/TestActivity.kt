@@ -4,13 +4,20 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import com.example.kotlin3.data.AppDatabase
+import com.example.kotlin3.data.TestResult
 import com.example.kotlin3.databinding.ActivityTestBinding
+import com.example.kotlin3.repository.TestRepository
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class TestActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityTestBinding
+    private lateinit var repository: TestRepository
+    private var userName = ""
 
-    // Простые вопросы прямо в коде
     private val questions = listOf(
         "Столица Франции?" to listOf("Лондон", "Берлин", "Париж", "Мадрид"),
         "2 + 2 = ?" to listOf("3", "4", "5", "6"),
@@ -26,6 +33,11 @@ class TestActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityTestBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        userName = intent.getStringExtra("user_name") ?: "Егор"
+
+        val database = AppDatabase.getInstance(this)
+        repository = TestRepository(database)
 
         showQuestion()
 
@@ -46,11 +58,7 @@ class TestActivity : AppCompatActivity() {
                 if (currentQuestion < questions.size) {
                     showQuestion()
                 } else {
-                    // Все вопросы отвечены - переходим к результатам
-                    val intent = Intent(this, ResultActivity::class.java)
-                    intent.putIntegerArrayListExtra("answers", ArrayList(userAnswers))
-                    startActivity(intent)
-                    finish()
+                    saveTestResult()
                 }
             } else {
                 Toast.makeText(this, "Выберите ответ", Toast.LENGTH_SHORT).show()
@@ -68,7 +76,40 @@ class TestActivity : AppCompatActivity() {
 
         binding.optionsGroup.clearCheck()
 
-        // Меняем текст кнопки на последнем вопросе
         binding.nextButton.text = if (currentQuestion == questions.size - 1) "Завершить" else "Далее"
+    }
+
+    private fun saveTestResult() {
+        val correctAnswers = listOf(2, 1, 2, 2, 2)
+        var correctCount = 0
+
+        for (i in userAnswers.indices) {
+            if (i < correctAnswers.size && userAnswers[i] == correctAnswers[i]) {
+                correctCount++
+            }
+        }
+
+        val totalQuestions = questions.size
+        val percentage = (correctCount.toDouble() / totalQuestions) * 100
+
+        val testResult = TestResult(
+            userName = userName,
+            correctAnswers = correctCount,
+            totalQuestions = totalQuestions,
+            percentage = percentage
+        )
+
+        CoroutineScope(Dispatchers.IO).launch {
+            repository.saveResult(testResult)
+
+            runOnUiThread {
+                val intent = Intent(this@TestActivity, ResultActivity::class.java)
+                intent.putExtra("correct_answers", correctCount)
+                intent.putExtra("total_questions", totalQuestions)
+                intent.putExtra("user_name", userName)
+                startActivity(intent)
+                finish()
+            }
+        }
     }
 }
