@@ -20,6 +20,9 @@ class ResultActivity : AppCompatActivity() {
         userName = intent.getStringExtra("user_name") ?: ""
 
         val percentage = (correctCount.toDouble() / totalQuestions) * 100
+
+        setupResultLottieAnimation()
+
         val resultText = """
             Пользователь: $userName
             Ваш результат: $correctCount/$totalQuestions
@@ -46,5 +49,12 @@ class ResultActivity : AppCompatActivity() {
             intent.putExtra("user_name", userName)
             startActivity(intent)
         }
+    }
+
+    private fun setupResultLottieAnimation() {
+        binding.resultAnimationView.setAnimation(R.raw.result_animation)
+        binding.resultAnimationView.playAnimation()
+        binding.resultAnimationView.repeatCount = 0
+        binding.resultAnimationView.speed = 1.0f
     }
 }

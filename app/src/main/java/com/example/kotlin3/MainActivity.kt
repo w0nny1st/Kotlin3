@@ -22,17 +22,21 @@ class MainActivity : AppCompatActivity() {
         val savedName = sharedPref.getString("user_name", "")
         binding.nameEditText.setText(savedName)
 
+        setupLottieAnimation()
+
         binding.startButton.setOnClickListener {
             val name = binding.nameEditText.text.toString()
             if (name.isNotEmpty()) {
                 sharedPref.edit().putString("user_name", name).apply()
 
                 val intent = Intent(this, TestActivity::class.java)
+                intent.putExtra("user_name", name)
                 startActivity(intent)
             } else {
                 Toast.makeText(this, "Введите имя", Toast.LENGTH_SHORT).show()
             }
         }
+
         binding.historyButton.setOnClickListener {
             val name = binding.nameEditText.text.toString()
             if (name.isNotEmpty()) {
@@ -43,5 +47,11 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "Введите имя для просмотра истории", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    private fun setupLottieAnimation() {
+        binding.animationView.setAnimation(R.raw.welcome_animation)
+        binding.animationView.playAnimation()
+        binding.animationView.repeatCount = -1
     }
 }
